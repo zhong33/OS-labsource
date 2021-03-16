@@ -62,7 +62,7 @@ def fcfs(q):
 def main():
     q = queue()
     q.buildQue()
-    q = fcfc(q)
+    q = fcfs(q)
     q.output()
 
 if __name__ == "__main__":
