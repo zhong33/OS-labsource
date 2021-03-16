@@ -43,7 +43,7 @@ class process:
         self.zz = None
         self.zzxs = None
 
-def fcfc(q):
+def fcfs(q):
     h = int(q.queue[0].arrive.split(":")[0])
     m = int(q.queue[0].arrive.split(":")[1])
     for now in q.queue:
