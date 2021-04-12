@@ -17,6 +17,7 @@ class OS:
         self.available = [int(_) for _ in input("请输入{}类资源初始化的资源数：".format(self.sourceTypeNum)).split()]
         self.max = []
         self.flag = [0 for _ in range(self.processNum)]
+        # self.flag 标识进程是否执行完毕
         print("\n请输入{}个进程的：\n进程名         最大需求量：\n               A   B   C".format(self.processNum))
         for i in range(self.processNum):
             self.max.append([int(_) for _ in [_ for _ in input().split()][1:]])
@@ -24,15 +25,18 @@ class OS:
         for i in range(self.processNum):
             self.allocation.append([0 for _ in range(self.sourceTypeNum)])
         print("\n请输入{}个进程的：\n进程名         第一次申请量：\n               A   B   C".format(self.processNum))
+        # 第一次申请的资源分配
         for i in range(self.processNum):
             request = [int(_) for _ in [_ for _ in input().split()][1:]]
             temp = [(request[j] + self.allocation[i][j]) for j in range(self.sourceTypeNum)]
             if temp <= self.max[i]:
                 if request <= self.available:
+                    # 进行资源分配
                     self.available = [(self.available[j] - request[j]) for j in range(self.sourceTypeNum)]
                     self.allocation[i] = [(self.allocation[i][j] + request[j]) for j in range(self.sourceTypeNum)]
                     self.need[i] = [(self.need[i][j] - request[j]) for j in range(self.sourceTypeNum)]
             if not self.security():
+                # 进行安全性检查
                 self.available = [(self.available[j] + request[j]) for j in range(self.sourceTypeNum)]
                 self.allocation[i] = [(self.allocation[i][j] - request[j]) for j in range(self.sourceTypeNum)]
                 self.need[i] = [(self.need[i][j] + request[j]) for j in range(self.sourceTypeNum)]
@@ -73,6 +77,7 @@ class OS:
     def more(self):
         self.output()
         done = [[0 for i in range(self.sourceTypeNum)] for i in range(self.processNum)]
+        # 矩阵全为 0 代表执行结束，自动退出
         while self.need != done:
             judge = input("是否需要再申请资源？（Y/N）")
             if judge == "Y" or judge == "y":
@@ -83,13 +88,16 @@ class OS:
             if request > self.max[processId]:
                 print("输入有误，重新输入")
             else:
+                # 进行资源分配
                 self.available = [(self.available[j] - request[j]) for j in range(self.sourceTypeNum)]
                 self.allocation[processId] = [(self.allocation[processId][j] + request[j]) for j in range(self.sourceTypeNum)]
                 self.need[processId] = [(self.need[processId][j] - request[j]) for j in range(self.sourceTypeNum)]
                 if self.security():
+                    # 安全性检查
                     self.output()
                     continue
                 else:
+                    # 回滚
                     print("无安全序列，申请不成功！")
                     self.available = [(self.available[j] + request[j]) for j in range(self.sourceTypeNum)]
                     self.allocation[processId] = [(self.allocation[processId][j] - request[j]) for j in range(self.sourceTypeNum)]
