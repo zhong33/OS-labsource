@@ -1,3 +1,6 @@
+#-*- encoding: utf-8 -*-
+# target: 模拟固定分区存储管理方式的分配与回收
+
 class Storage:
     def __init__(self):
         self.num = None
@@ -9,6 +12,7 @@ class Storage:
     def build(self):
         self.num = int(input("请输入系统的分区块数："))
         print("请依次输入：\n分区号\t大小\t起始")
+        # 划分区
         for i in range(self.num):
             self.blocks.append([int(_) for _ in input().split()] + [0])
         self.output()
@@ -16,6 +20,7 @@ class Storage:
         print("请输入这{}个作业的信息：".format(self.worknum))
         for i in range(self.worknum):
             self.worksize.append(int(input("请输入作业{}的大小：".format(i+1))))
+            # 装入待处理作业
             for j in self.blocks:
                 if j[1] >= self.worksize[i] and j[3] == 0:
                     j[3] = "JOB" + str(i+1)
@@ -31,21 +36,22 @@ class Storage:
             print("{}\t{}\t\t{}\t\t{}".format(now[0],now[1],now[2],now[3]))
 
     def more(self):
+        self.output()
         while True:
-            self.output()
             judge = input("是否还需要回收？（y/n）")
             if judge == "Y" or judge == "y":
                 self.output()
                 flag = 1
                 jobname = input("请输入回收的作业名：")
+                # 作业回收
                 for now in self.blocks:
                     if now[3] == jobname:
                         now[3] = flag = 0
                         print("回收成功！")
+                        self.output()
                         break
                 if flag:
                     print("发生错误，回收失败！")
-                self.output()
             else:
                 exit()
 
