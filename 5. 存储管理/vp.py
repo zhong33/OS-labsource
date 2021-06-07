@@ -137,9 +137,12 @@ class Strorge:
                 self.free[i-1][0] += self.free[i][0]
                 self.free.remove(self.free[i])
 
-if __name__ == "__main__":
+def main():
     s = Strorge()
     s.build()
+
+if __name__ == "__main__":
+    main()
 
 """
 256

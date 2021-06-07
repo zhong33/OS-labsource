@@ -55,10 +55,13 @@ class Storage:
             else:
                 exit()
 
-if __name__ == "__main__":
+def main():
     s = Storage()
     s.build()
     s.more()
+
+if __name__ == "__main__":
+    main()
 
 """
 5
