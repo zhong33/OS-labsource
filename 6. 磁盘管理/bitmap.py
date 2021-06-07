@@ -25,13 +25,13 @@ class Node:
 class Disk:
     def __init__(self, size, wordlen, blocklen, tracksum, sectorsum):
         self.size = size
-        self.a = [random.randint(0,1) for i in range(self.size // self.blocklen)]
         self.wordlength = wordlen
         self.blocklen = blocklen
         self.tracksum = tracksum
         self.sectorsum = sectorsum
         self.jobname = []       # 作业名列表
         self.job = []           # 作业列表
+        self.a = [random.randint(0,1) for i in range(self.size // self.blocklen)]
     
     def out(self):
         s = "   "
