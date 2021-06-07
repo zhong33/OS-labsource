@@ -53,7 +53,7 @@ class Storage:
                 if flag:
                     print("发生错误，回收失败！")
             else:
-                exit()
+                break
 
 def main():
     s = Storage()
